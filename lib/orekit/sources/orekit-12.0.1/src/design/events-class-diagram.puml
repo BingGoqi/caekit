@@ -1,0 +1,128 @@
+' Copyright 2002-2023 CS GROUP
+' Licensed to CS GROUP (CS) under one or more
+' contributor license agreements.  See the NOTICE file distributed with
+' this work for additional information regarding copyright ownership.
+' CS licenses this file to You under the Apache License, Version 2.0
+' (the "License"); you may not use this file except in compliance with
+' the License.  You may obtain a copy of the License at
+'
+'   http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+ 
+@startuml
+
+  skinparam svek                  true
+  skinparam ClassBackgroundColor  #F3EFEB/CCC9C5
+  skinparam ClassArrowColor       #691616
+  skinparam ClassBorderColor      #691616
+  skinparam NoteBackgroundColor   #F3EFEB
+  skinparam NoteBorderColor       #691616
+  skinparam NoteFontColor         #691616
+  skinparam ClassFontSize         11
+  skinparam PackageFontSize       12
+  skinparam linetype              ortho
+
+  package org.orekit.propagation #ECEBD8 {
+
+    interface Propagator {
+      +void addEventDetector(EventDetector detector)
+      +Collection<EventDetector> getEventsDetectors()
+      +void clearEventsDetectors()
+    }
+
+    package events #DDEBD8 {
+
+      package handlers #CBDBC8 {
+
+        interface EventHandler {
+          +init(SpacecraftState s0, AbsoluteDate target, EventDetector detector)
+          +Action eventOccurred(SpacecraftState s, EventDetector detector, boolean increasing)
+          +SpacecraftState resetState(EventDetector detector, SpacecraftState oldState)
+        }
+
+        enum Action {
+          +STOP
+          +RESET_STATE
+          +RESET_DERIVATIVES
+          +CONTINUE
+        }
+
+        ContinueOnEvent       --|> EventHandler
+        StopOnEvent           --|> EventHandler
+        StopOnDecreasingEvent --|> EventHandler
+        StopOnIncreasingEvent --|> EventHandler
+
+      }
+
+      class EventsLogger
+
+      interface EventDetector {
+        +void init(SpacecraftState s0, AbsoluteDate t)
+        +double g(SpacecraftState s)
+        +double getThreshold()
+        +double getMaxCheckInterval()
+        +int getMaxIterationCount()
+        +eventOccurred(SpacecraftState s, boolean increasing)
+        +resetState(SpacecraftState oldState)
+      }
+
+      class EventShifter {
+       -double increasingOffset
+       -double decreasingOffset
+      }
+
+      EventDetector <--* "1" EventShifter 
+      class "AbstractDetector<T extends AbstractDetector<T>>" as AbstractDetector_T_ {
+        +T withMaxCheck(double maxCheck)
+        +T withThreshold(double threshold)
+        +T withMaxIter(int maxIter)
+        +T withHandler(EventHandler handler)
+        +EventHandler getHandler()
+      }
+
+      enum FilterType {
+        TRIGGER_ONLY_DECREASING_EVENTS
+        TRIGGER_ONLY_INCREASING_EVENTS
+      }
+
+      interface EnablingPredicate {
+        +eventIsEnabled(SpacecraftState state, S eventDetector, double g)
+      }
+
+      EventsLogger "*" *--> EventDetector : monitors
+
+      EventDetector <--* "1" EventSlopeFilter 
+      EventSlopeFilter "1" *--> FilterType
+
+      Propagator "1" o--> "*" EventDetector  : detectors
+      EventDetector <--* "1" EventEnablingPredicateFilter 
+      EventEnablingPredicateFilter "1" *--> EnablingPredicate
+
+      AbstractDetector_T_ <|-- EventShifter  
+      AbstractDetector_T_ <|-- EventSlopeFilter  
+      AbstractDetector_T_ <|-- EventEnablingPredicateFilter  
+
+      Action <-left- EventHandler
+      EventDetector       <|.. AbstractDetector_T_
+      AbstractDetector_T_ <|-- EclipseDetector
+      AbstractDetector_T_ <|-- ElevationDetector
+      class "...Detector" as DummyDetector
+      DummyDetector --|> AbstractDetector_T_
+      note top
+        many implementations
+        not displayed for the
+        sake of diagram clarity
+      end note
+
+      EventHandler "1" <--o AbstractDetector_T_ : handler
+
+    }
+
+  }
+
+@enduml

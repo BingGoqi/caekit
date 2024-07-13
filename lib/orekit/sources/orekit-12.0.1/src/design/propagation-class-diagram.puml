@@ -1,0 +1,105 @@
+' Copyright 2002-2023 CS GROUP
+' Licensed to CS GROUP (CS) under one or more
+' contributor license agreements.  See the NOTICE file distributed with
+' this work for additional information regarding copyright ownership.
+' CS licenses this file to You under the Apache License, Version 2.0
+' (the "License"); you may not use this file except in compliance with
+' the License.  You may obtain a copy of the License at
+'
+'   http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+ 
+@startuml
+
+  skinparam svek                  true
+  skinparam ClassBackgroundColor  #F3EFEB/CCC9C5
+  skinparam ClassArrowColor       #691616
+  skinparam ClassBorderColor      #691616
+  skinparam NoteBackgroundColor   #F3EFEB
+  skinparam NoteBorderColor       #691616
+  skinparam NoteFontColor         #691616
+  skinparam ClassFontSize         11
+  skinparam PackageFontSize       12
+  skinparam linetype              ortho
+
+  package org.orekit #ECEBD8 {
+
+    package time #DDEBD8 {
+
+      interface TimeStamped
+
+      interface "TimeShiftable<T>" as TimeShiftable_T_
+
+      interface "TimeInterpolable<T>" as TimeInterpolable_T_
+
+    }
+
+    package propagation #DDEBD8 {
+
+      class SpacecraftState {
+        +Orbit getOrbit()
+        +Attitude getAttitude()
+        +double getMass()
+        +SpacecraftState addAdditionalState(final String name, final double ... value)
+        +boolean hasAdditionalState(final String name)
+        +double[] getAdditionalState(final String name)
+        +DoubleArrayDictionary getAdditionalStates()
+        +SpacecraftState addAdditionalStateDerivative(final String name, final double ... value)
+        +boolean hasAdditionalStateDerivative(final String name)
+        +double[] getAdditionalStateDerivative(final String name)
+        +DoubleArrayDictionary getAdditionalStatesDerivatives()
+      }
+      note bottom
+        always immutable addAdditionalState and
+        addAdditionalStateDerivative create new instances
+      end note
+
+      interface BoundedPropagator {
+        +AbsoluteDate getMinDate()
+        +AbsoluteDate getMaxDate()
+      }
+
+      interface Propagator {
+        +StepHandlerMultiplexer getMultiplexer()
+        +void clearStepHandlers()
+        +void setStepHandler(double h, OrekitFixedStepHandler handler)
+        +void setStepHandler(OrekitStepHandler handler)
+        +SpacecraftState getInitialState()
+        +void resetInitialState(SpacecraftState state)
+        +void addEventDetector(EventDetector detector)
+        +Collection<EventDetector> getEventsDetectors()
+        +void clearEventsDetectors()
+        +AttitudeProvider getAttitudeProvider()
+        +void setAttitudeProvider(AttitudeProvider attitudeProvider)
+        +Frame getFrame()
+        +MatricesHarvester setupMatricesComputation(String stmName, RealMatrix initialStm, DoubleArrayDictionary initialJacobianColumns)
+        +SpacecraftState propagate(AbsoluteDate target)
+        +SpacecraftState propagate(AbsoluteDate start, AbsoluteDate target)
+      }
+
+      BoundedPropagator ..|> Propagator
+      SpacecraftState <-- Propagator : create
+
+     TimeStamped         ..|> SpacecraftState
+     TimeShiftable_T_    ..|> SpacecraftState
+     TimeInterpolable_T_ ..|> SpacecraftState
+
+   }
+
+    package utils #DDEBD8 {
+
+      interface PVCoordinatesProvider {
+        +PVCoordinates getPVCoordinates(AbsoluteDate date, Frame frame)
+      }
+
+      Propagator ..|> PVCoordinatesProvider
+    }
+
+ }
+
+@enduml

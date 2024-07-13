@@ -1,0 +1,84 @@
+' Copyright 2002-2023 CS GROUP
+' Licensed to CS GROUP (CS) under one or more
+' contributor license agreements.  See the NOTICE file distributed with
+' this work for additional information regarding copyright ownership.
+' CS licenses this file to You under the Apache License, Version 2.0
+' (the "License"); you may not use this file except in compliance with
+' the License.  You may obtain a copy of the License at
+'
+'   http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+ 
+@startuml
+
+  skinparam svek                                true
+  skinparam NoteBackgroundColor                 #F3EFEB
+  skinparam NoteBorderColor                     #691616
+  skinparam NoteFontColor                       #691616
+  skinparam SequenceActorBorderColor            #6A584B
+  skinparam SequenceParticipantBackgroundColor  #F3EFEB/CCC9C5
+  skinparam SequenceParticipantBorderColor      #6A584B
+  skinparam SequenceLifeLineBackgroundColor     #CCC9C5/F3EFEB
+  skinparam SequenceLifeLineBorderColor         #6A584B
+  skinparam SequenceArrowColor                  #6A584B
+  skinparam SequenceBorderColor                 #6A584B
+  skinparam SequenceFontSize                    11
+
+  hide footbox
+
+  box "User application" #F3EDF7
+    participant "Main" as M
+  end box
+  participant Propagator
+  participant Integrator
+  participant DifferentialEquations
+  participant OrbitType
+  participant TimesDerivative
+  participant "Force Model i" as Fi
+  participant NewtonianAttraction
+
+  activate M
+  M          -> Propagator : propagate
+    activate Propagator
+    Propagator -> DifferentialEquations : create
+      activate DifferentialEquations
+      deactivate DifferentialEquations
+    Propagator -> TimesDerivative : create
+      activate TimesDerivative
+      deactivate TimesDerivative
+    Propagator -> Integrator : integrate
+      activate Integrator
+      loop #DDEBD8 for n steps
+      Integrator -> DifferentialEquations : computeDerivatives
+        activate DifferentialEquations
+        DifferentialEquations -> OrbitType : mapArrayToOrbit
+          activate OrbitType
+          deactivate OrbitType
+      loop #ECEBD8 for all perturbation force models
+        DifferentialEquations -> Fi : addContribution
+          activate Fi
+          Fi -> TimesDerivative : addAcceleration
+            activate TimesDerivative
+            deactivate TimesDerivative
+          deactivate Fi
+       end
+        DifferentialEquations -> NewtonianAttraction : addContribution
+          activate NewtonianAttraction
+          NewtonianAttraction -> TimesDerivative : addKeplerContribution
+            activate TimesDerivative
+            deactivate TimesDerivative
+          deactivate NewtonianAttraction
+        deactivate DifferentialEquations
+      end
+      Integrator --> Propagator : final state
+      deactivate Integrator
+    Propagator --> M : final state
+    deactivate Propagator
+  deactivate M
+
+@enduml

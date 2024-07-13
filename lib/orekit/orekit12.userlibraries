@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<eclipse-userlibraries version="2">
+    <library name="orekit" systemlibrary="false">
+        <archive path="E:/orekit/class/hipparchus-clustering-3.0.jar" source="E:/orekit/sources/hipparchus-clustering"/>
+        <archive path="E:/orekit/class/hipparchus-core-3.0.jar" source="E:/orekit/sources/hipparchus-core"/>
+        <archive path="E:/orekit/class/hipparchus-fft-3.0.jar" source="E:/orekit/sources/hipparchus-fft"/>
+        <archive path="E:/orekit/class/hipparchus-filtering-3.0.jar" source="E:/orekit/sources/hipparchus-filtering"/>
+        <archive path="E:/orekit/class/hipparchus-fitting-3.0.jar" source="E:/orekit/sources/hipparchus-fitting"/>
+        <archive path="E:/orekit/class/hipparchus-geometry-3.0.jar" source="E:/orekit/sources/hipparchus-geometry"/>
+        <archive path="E:/orekit/class/hipparchus-migration-3.0.jar" source="E:/orekit/sources/hipparchus-geometry"/>
+        <archive path="E:/orekit/class/hipparchus-ode-3.0.jar" source="E:/orekit/sources/hipparchus-ode"/>
+        <archive path="E:/orekit/class/hipparchus-optim-3.0.jar" source="E:/orekit/sources/hipparchus-optim"/>
+        <archive path="E:/orekit/class/hipparchus-samples-3.0.jar" source="E:/orekit/sources/hipparchus-samples"/>
+        <archive path="E:/orekit/class/hipparchus-stat-3.0.jar" source="E:/orekit/sources/hipparchus-stat"/>
+        <archive path="E:/orekit/class/orekit-12.0.1.jar" source="E:/orekit/sources/orekit-12.0.1"/>
+    </library>
+</eclipse-userlibraries>
