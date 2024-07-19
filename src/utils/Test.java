@@ -7,9 +7,7 @@
 
 package utils;
 
-//import java.math.BigDecimal;
-//import jdk.incubator.vector.*;
-import meiKoKwan.MathExtends;
+import space.orbit.KeplerianOrbit;
 /**  
  * @ClassName: Test
  * @Description: TODO
@@ -31,7 +29,7 @@ public class Test {
 		double e,m,f;
 		e = 0.999999999;
 		m = 3.1;
-		f = MathExtends.KeplerSolve(e, m);
+		f = KeplerianOrbit.KeplerSolve(e, m);
 		System.out.println(f);
 	}
 }

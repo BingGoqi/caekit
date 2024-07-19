@@ -9,33 +9,34 @@ package interpolation;
 
 /**  
  * @ClassName: InterpIntarval
- * @Description: TODO
+ * @Description: 广义多项式|废弃
  * @author BingGoqi
  * @date 2024-07-03 08:49:03 
 */
 
 public class InterpIntarvalDouble {
 	final double[] plist;
-	double t0,t1;
-	public InterpIntarvalDouble(double t0,double t1,boolean b,double...ds) {
-		this.t0 = t0;
-		this.t1 = t1;
+	double ts,T,p0;
+	public InterpIntarvalDouble(double ts,double te,boolean b,double...ds) {
+		this.ts = ts;
+		this.T = te-ts;
 		plist = ds;
 	}
 	public InterpIntarvalDouble(double t0,boolean b,double...ds) {
-		this.t0 = t0;
+		this.ts = t0;
 		plist = ds;
 	}
 	double getStart() {
-		return t0;
+		return ts;
 	}
 	double getEnd() {
-		return t1;
+		return ts+T;
 	}
 	int getCompare(double t) {
-		return t<t0?-1:t>t1?1:0;
+		return t<ts?-1:t>ts+T?1:0;
 	}
 	double getVal(double t) {
+		t = (t-ts)/T;
 		double a;
 		a = plist[0];
 		for(int i = 1,j = plist.length;i < j;i++) {

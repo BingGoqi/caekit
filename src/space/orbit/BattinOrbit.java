@@ -65,7 +65,7 @@ public class BattinOrbit {
 		return k-2*rp/k;
 	}
 	public final double BattionSolve(double dt) {
-		//TODO
+		//TODO 未完工
 		return KeplerianOrbit.KeplerSolve(dt, dt);
 	}
 }

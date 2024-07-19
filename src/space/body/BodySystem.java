@@ -17,7 +17,6 @@ package space.body;
 
 public class BodySystem {
 	TreeNode root;
-	
 	class TreeNode{
 		TreeNode p,s,b;
 		Body val;
