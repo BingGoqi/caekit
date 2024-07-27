@@ -6,6 +6,7 @@
  */ 
 
 package meiKoKwan;
+import static java.lang.Math.*;
 
 /**
  * @ClassName : CubePlotData
@@ -19,8 +20,8 @@ public final class CubePlot{
 	private double a,p,q,dat,dx;
 	public CubePlot(double b,double c,double d) {
 		dx = b/3;
-		p = Math.fma(-3*dx, dx, c);
-		q = Math.fma(Math.fma(2*dx, dx, -c), dx, d);
+		p = fma(-3*dx, dx, c);
+		q = fma(fma(2*dx, dx, -c), dx, d);
 	}
 	public CubePlot(double na,double b,double c,double d) {
 		this(b*na,c*na,d*na);
@@ -31,32 +32,32 @@ public final class CubePlot{
 		this.q = q;
 		a = 1;
 		dx = 0;
-		dat = Math.sqrt(Math.abs(p)/3);
+		dat = sqrt(abs(p)/3);
 		dat = (dat*dat-p)*dat;
 	}
 	Vector3d getPn() {
 		double b = 3*dat;
-		double c = Math.fma(b, dat, p);
-		return new Vector3d(a*b,a*c,a*Math.fma(Math.fma(2*dat, dat, -c),-dat,q));
+		double c = fma(b, dat, p);
+		return new Vector3d(a*b,a*c,a*fma(fma(2*dat, dat, -c),-dat,q));
 	}
-	private final double getA() {
+	public final double getA() {
 		return a;
 	}
 	public final double getVal(double t) {
 		if(a == 0)return 0;
 		t += dx;
-		return a*Math.fma(Math.fma(t, t, p), t,q);
+		return a*fma(fma(t, t, p), t,q);
 	}
 	//x3+px+q==0
 	private final double getR1(double q) {
-		double n = Math.sqrt(p*p*p/27+q*q/4);
-		return Math.cbrt(-q/2+n)+Math.cbrt(-q/2-n);
+		double n = sqrt(p*p*p/27+q*q/4);
+		return cbrt(-q/2+n)+cbrt(-q/2-n);
 	}
 	private final double getR21(double q) {
-		return Math.cbrt(q)*Math.cbrt(-4);
+		return cbrt(q)*cbrt(-4);
 	}
 	private final double getR22(double q) {
-		return dat*Math.signum(q);
+		return dat*signum(q);
 	}
 	private final Vector3d getR3(double q) {
 		var l = getPn();
@@ -64,12 +65,12 @@ public final class CubePlot{
 		double 
 		A = b*b - 3*a*c,
 		B = b*c - 9*a*d,
-		C = c*c - 3*b*d,
+		//C = c*c - 3*b*d,
 		x1,x2,x3;
-		double sqA = Math.sqrt(A);
-		double theta = Math.acos(A*b - 1.5*a*B)/(A*sqA);
-		double csth = Math.cos(theta/3);
-		double sn3th = Math.sqrt(3)*Math.sin(theta/3);
+		double sqA = sqrt(A);
+		double theta = acos(A*b - 1.5*a*B)/(A*sqA);
+		double csth = cos(theta/3);
+		double sn3th = sqrt(3)*sin(theta/3);
 		x2 = (-1*b + sqA*(csth + sn3th))/(3*a);
 		x3 = (-1*b + sqA*(csth - sn3th))/(3*a);
 		x1 = -b/a-x2-x3;
@@ -78,7 +79,7 @@ public final class CubePlot{
 	private final int getType(double q) {
 		if(p > 0) return 1;
 		if(p == 0)return 0;
-		q = Math.abs(q);
+		q = abs(q);
 		if(q > dat)return 1;
 		if(q < dat)return 3;
 		return 2;
@@ -86,7 +87,7 @@ public final class CubePlot{
 	public int getRootType(double v) {
 		if(p > 0) return 1;
 		if(p == 0)return 0;
-		double q = Math.abs(this.q-v/a);
+		double q = abs(this.q-v/a);
 		if(q > dat)return 1;
 		if(q < dat)return 3;
 		return 2;
