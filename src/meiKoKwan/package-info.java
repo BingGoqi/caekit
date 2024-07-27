@@ -13,3 +13,6 @@
 */
 
 package meiKoKwan;
+/**
+ * 数学相关模型，函数
+ */

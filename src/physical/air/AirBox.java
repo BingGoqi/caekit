@@ -19,6 +19,6 @@ import meiKoKwan.Vector3d;
 public class AirBox {
 	float xp,xn,yp,yn,zp,zn;
 	void getDref(Vector3d dv,Vector3d pf) {
-		pf.x = dv.x>0?dv.x*xp:-dv.x*xn;
+		//pf.x = dv.x>0?dv.x*xp:-dv.x*xn;
 	}
 }

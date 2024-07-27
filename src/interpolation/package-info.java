@@ -13,3 +13,6 @@
 */
 
 package interpolation;
+/**
+ * 曲线插值，求解
+ */
