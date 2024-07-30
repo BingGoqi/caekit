@@ -11,7 +11,7 @@ import java.util.TreeMap;
 
 /**  
  * @ClassName: ResourceTree
- * @Description: TODO
+ * @Description: 资源优先级树
  * @author BingGoqi
  * @date 2024-07-24 09:33:48 
 */
@@ -29,11 +29,17 @@ public class ResourceTree{
 		}
 	}
 	public double useResource(double rv) {
+		return Math.max(rv-stock,0);
 	}
 	public double addResource(double rv) {
+		return Math.max(rv-size+stock,0);
 	}
-	public double clean() {
+	public void clean() {
+		stock = 0;
+		tlist.forEach((k,v)-> v.clean());
 	}
-	public double full() {
+	public void full() {
+		stock=size;
+		tlist.forEach((k,v)-> v.full());
 	}
 }

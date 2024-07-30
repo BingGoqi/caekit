@@ -7,7 +7,7 @@
 
 package interpolation;
 
-import meiKoKwan.Vector3d;
+import org.joml.Vector3d;
 
 /**  
  * @ClassName: InterpIntarval33

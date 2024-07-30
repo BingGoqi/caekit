@@ -9,7 +9,7 @@ package interpolation;
 
 /**  
  * @ClassName: LinePerturb
- * @Description: TODO
+ * @Description: 线性函数
  * @author BingGoqi
  * @date 2024-07-17 03:05:45 
 */

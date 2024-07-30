@@ -11,7 +11,7 @@ import java.util.LinkedList;
 
 /**  
  * @ClassName: Linkedlist
- * @Description: TODO
+ * @Description: 需重写的链表，实现更多功能
  * @author BingGoqi
  * @date 2024-07-24 01:30:20 
 */

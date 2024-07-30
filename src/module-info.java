@@ -10,4 +10,5 @@
  */
 module caekit {
 	requires jdk.incubator.vector;
+	requires org.joml;
 }

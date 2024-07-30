@@ -11,7 +11,7 @@ import space.orbit.Orbit;
 
 /**  
  * @ClassName: Body
- * @Description: TODO
+ * @Description: 星球
  * @author BingGoqi
  * @date 2024-07-15 07:53:41 
 */

@@ -7,11 +7,11 @@
 
 package space;
 
-import meiKoKwan.Vector3d;
+import org.joml.Vector3d;
 
 /**  
  * @ClassName: PVCoordinates
- * @Description: TODO
+ * @Description: 位置，速度
  * @author BingGoqi
  * @date 2024-07-21 09:07:02 
 */

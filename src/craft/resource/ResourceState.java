@@ -17,7 +17,7 @@ import utils.Linkedlist;
  */
 
 public class ResourceState{
-	Linkedlist<ResourceContainer> clist;
+	Linkedlist<ResourceContainer> clist;//相同优先级集合
 	int type,priority;
 	public int getType() {
 		return type;
@@ -73,28 +73,12 @@ public class ResourceState{
 			clist.forEach(s -> s.full());
 			return k;
 		}
-	}
-	/**  
-	 * @MethodName: clean
-	 * @Description: TODO
-	 * @author BingGoqi
-	 * @return
-	 * @see craft.resource.Resource#clean()
-	 * @date 2024-07-24 09:49:28 
-	 */  
+	} 
 	public double clean() {
 		stock = 0;
 		clist.forEach(c-> c.clean());
 		return 0;
 	}
-	/**  
-	 * @MethodName: full
-	 * @Description: TODO
-	 * @author BingGoqi
-	 * @return
-	 * @see craft.resource.Resource#full()
-	 * @date 2024-07-24 09:49:28 
-	 */  
 	public double full() {
 		stock = size;
 		clist.forEach(c-> c.clean());

@@ -12,7 +12,7 @@ import java.util.LinkedList;
 
 /**  
  * @ClassName: OrderList
- * @Description: TODO
+ * @Description: 一种低成本有序集合，无思路
  * @author BingGoqi
  * @date 2024-06-11 10:32:56 
 */

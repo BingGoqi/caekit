@@ -2,7 +2,7 @@ package utils;
 
 /**  
  * @ClassName: ArrayArrayList
- * @Description: 低成本动态数组
+ * @Description: 低成扩容的本动态数组
  * @author BingGoqi
  * @date 2024-06-10 10:08:14 
 */

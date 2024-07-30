@@ -8,9 +8,11 @@
 package meiKoKwan;
 import static java.lang.Math.*;
 
+import org.joml.Vector3d;
+
 /**
  * @ClassName : CubePlotData
- * @Description : TODO
+ * @Description : 三次函数和求解器，使用三次函数球根公式，快速匹配根数
  * @author  BingGoqi
  * @date  2024-07-19 03:37:28 
  */

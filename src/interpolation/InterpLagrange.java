@@ -15,14 +15,13 @@ package interpolation;
 */
 
 public class InterpLagrange {
-	double[] pl,kl;
+	double[] pl,kl;//未展开的Lagrange参数
 	/**  
 	 * @Constructor: InterpLagrange
 	 * @Description: InterpLagrange构造函数
 	 * @author BingGoqi
 	 * @date 2024-07-19 08:52:27 
 	 */
-
 	public InterpLagrange(double[] px,double[] py) {
 		pl = px;
 		double ki;

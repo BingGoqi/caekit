@@ -7,11 +7,11 @@
 
 package space;
 
-import meiKoKwan.Vector3d;
+import org.joml.Vector3d;
 
 /**  
  * @ClassName: SpaseFrame
- * @Description: TODO
+ * @Description: 用于构造坐标系
  * @author BingGoqi
  * @date 2024-07-17 09:39:14 
 */

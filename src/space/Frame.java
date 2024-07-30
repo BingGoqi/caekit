@@ -7,18 +7,17 @@
 
 package space;
 
-import meiKoKwan.Matrix33d;
-import meiKoKwan.Vector3d;
+import org.joml.Matrix3d;
+import org.joml.Vector3d;
 
 /**  
  * @ClassName: Frame
- * @Description: TODO
+ * @Description: 坐标系
  * @author BingGoqi
  * @date 2024-07-21 07:52:08 
 */
 
 public class Frame {
-	Vector3d o;
-	Matrix33d tfm;
-	double k;
+	PFrame o;//原点
+	Matrix3d tfm;//变换矩阵
 }

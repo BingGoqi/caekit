@@ -9,7 +9,7 @@ package interpolation;
 
 /**  
  * @ClassName: SinPerturb
- * @Description: TODO
+ * @Description: 三角函数
  * @author BingGoqi
  * @date 2024-07-17 05:57:29 
 */
