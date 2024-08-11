@@ -1,20 +1,19 @@
 /**  
- * @Title: TimeShiftable.java
+ * @Title: ShiftTime.java
  * @Description: TODO
  * @author BingGoqi
- * @date 2024-07-30 10:00:23 
+ * @date 2024-08-11 10:26:42 
  */ 
 
-package utils;
+package Time;
 
 /**  
- * @ClassName: TimeShiftable
+ * @ClassName: ShiftTime
  * @Description: TODO
  * @author BingGoqi
- * @date 2024-07-30 10:00:23 
+ * @date 2024-08-11 10:26:42 
 */
 
 public interface TimeShiftable {
-	void toTime(double time);
 	void shiftTime(double dt);
 }

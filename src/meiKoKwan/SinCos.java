@@ -17,7 +17,7 @@ import org.joml.Vector2d;
 */
 
 public class SinCos {
-	double sin,cos;
+	public final double sin,cos;
 	/**  
 	 * @Constructor: SinCos
 	 * @Description: SinCos构造函数

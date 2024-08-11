@@ -15,7 +15,7 @@ package interpolation;
 */
 
 public class LinePerturb {
-	private final double A0,K;
+	public final double A0,K;
 	/**  
 	 * @Constructor: LinePerturb
 	 * @Description: LinePerturb构造函数
@@ -27,7 +27,10 @@ public class LinePerturb {
 		K = k;
 		A0 = a0;
 	}
-	public double grtVal(double t) {
+	public double getVal(double t) {
 		return Math.fma(K, t, A0);
+	}
+	public double getK(double t) {
+		return K;
 	}
 }
