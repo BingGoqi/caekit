@@ -15,7 +15,7 @@ package space.orbit;
 */
 
 public class BattinOrbit {
-	double tp,al,rp,i;
+	double tp,al,rp,i;//近点时间，半长轴倒数，近点，倾角
 	public final double U0(double x) {
 		return Math.cos(x);
 	}

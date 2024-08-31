@@ -1,17 +1,20 @@
 package space.frame;
 
-import static meiKoKwan.MConst.X;
-
 import org.joml.Math;
 import org.joml.Vector3d;
 
 import meiKoKwan.SinCos;
 
 public class TCISFrame extends Frame {
-	Vector3d rae = X;
+	private Vector3d rae;
 	//y轴指向平天球和真天球左侧交点
 	public TCISFrame(Frame sup, String name, Vector3d rae) {
 		super(sup, name, null);
+		this.rae = rae;
+	}
+	public TCISFrame(Frame sup, String name, double r, double dA,double dE) {
+		super(sup, name, null);
+		rae.set(r,dA,dE);
 	}
 	@Override
 	void tSup(Vector3d in, Vector3d out) {
@@ -24,19 +27,11 @@ public class TCISFrame extends Frame {
 		out.mul(rae.x);
 	}
 	@Override
-	void tSup(Vector3d v) {
-		tSup(v,v);
-	}
-	@Override
 	void tThis(Vector3d in, Vector3d out) {
 		out.x = in.length();
 		out.y = Math.atan2(in.y, in.x);
 		out.z = Math.atan2(in.z, out.x);
 		out.x /= rae.z;
 		out.sub(0,rae.y,rae.z);
-	}
-	@Override
-	void tThis(Vector3d v) {
-		tThis(v,v);
 	}
 }

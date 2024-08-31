@@ -8,6 +8,8 @@
 package meiKoKwan;
 
 import static java.lang.Math.*;
+
+import org.joml.Math;
 /**  
  * @ClassName: MathExtends
  * @Description: 扩展数学函数
@@ -15,15 +17,18 @@ import static java.lang.Math.*;
  * @date 2024-07-04 03:30:04 
 */
 
-public class MathExtends {
+public class MathExtends extends Math{
 	public static final double asinh(double x) {
-		return Math.log(x+sqrt(1+x*x));
+		return java.lang.Math.log(x+sqrt(1+x*x));
 	}
 	public static final boolean round(double a,double b) {
 		return (Math.abs(a-b)<1e-8);
 	}
 	public static final double pow2(double a) {return a*a;}
 	public static final double pow3(double a) {return a*a*a;}
+	public static double atan(double x) {
+		return java.lang.Math.atan(x);
+	}
 	public static double ksmd(int p,int n) {
 		int a = p;
 		while(n > 1) {
@@ -96,5 +101,17 @@ public class MathExtends {
 			return E;
 		}
 		return 1/0;
+	}
+
+	public static double XYZ2BLH(double t,double p,double k) {
+		double tb,dtb;
+		dtb = p*t/sqrt(k+t*t);
+		tb = t+dtb;
+		while(abs(dtb) > 4.5e-16) {
+			dtb = tb;
+			tb = t+p*tb/sqrt(k+tb*tb);
+			dtb = tb-dtb;
+		}
+		return atan(tb);
 	}
 }

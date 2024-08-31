@@ -8,6 +8,7 @@
 package meiKoKwan;
 
 import org.joml.Vector2d;
+import static meiKoKwan.MathExtends.*;
 
 /**  
  * @ClassName: SinCos
@@ -25,11 +26,11 @@ public class SinCos {
 	 * @date 2024-07-30 05:53:55 
 	 */
 	public static void SinCos(Vector2d sc,double a) {
-		sc.x = Math.sin(a);
-		sc.y = Math.sqrt(1-sc.x*sc.x);
+		sc.x = sin(a);
+		sc.y = sqrt(1-sc.x*sc.x);
 	}
 	public SinCos(double a) {
-		sin = Math.sin(a);
-		cos = Math.sqrt(1-sin*sin);
+		sin = sin(a);
+		cos = sqrt(1-sin*sin);
 	}
 }

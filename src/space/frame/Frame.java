@@ -10,6 +10,13 @@ public class Frame {
 	public Frame tsub;//TOOD 临时,坐标系链标记
 	private UnInertial ui;
 	final int properties;
+	public Frame() {
+		sup = null;
+		name = "RootFrame";
+		tf = null;
+		rank = 0;
+		properties = 0;
+	}
 	public Frame(Frame sup,String name,TransForm tf) {
 		this.name = name;
 		this.sup = sup;
@@ -18,13 +25,13 @@ public class Frame {
 		properties = 1;
 	}
 	void tSup(Vector3d v) {
-		tf.tSup(v, v);
+		tSup(new Vector3d(v), v);
 	}
 	void tSup(Vector3d in,Vector3d out) {
 		tf.tSup(in, out);
 	}
 	void tThis(Vector3d v) {
-		tf.tThis(v, v);
+		tThis(new Vector3d(v), v);
 	}
 	void tThis(Vector3d in,Vector3d out) {
 		tf.tThis(in, out);

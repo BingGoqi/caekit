@@ -7,10 +7,16 @@ import static meiKoKwan.MConst.*;
 
 public class GRSfrom implements TransForm,GRSf{
 	Vector3d move,scal;
-	double scald = 0;
+	/**			scald
+	 * 			1	v
+	 * 	scal   不缩放	同向缩放
+	 * 		  异向缩放	XXXXX
+	 */
+	private final double scald;
 	AxisAngle4d aa,na;
-	int order;//final
+	private final int order;//final
 	public GRSfrom() {
+		this.scald = 1;
 		move = ZERO;
 		scal = TONE;
 		aa = IDENTITY;
@@ -18,10 +24,12 @@ public class GRSfrom implements TransForm,GRSf{
 		order = 0;
 	}
 	public GRSfrom(Vector3d move,Vector3d scal,AxisAngle4d aa,int order) {
+		this.scald = 1;//
 		this.order = order;
 		this.aa = aa;
-		this.move = move;
-		this.scal = scal;
+		this.move = new Vector3d(move);
+		this.scal = scal == TONE?TONE:new Vector3d(scal);
+		this.aa = new AxisAngle4d(aa);
 		na = new AxisAngle4d(aa);
 		na.angle = -na.angle;
 	}
@@ -60,17 +68,17 @@ public class GRSfrom implements TransForm,GRSf{
 	}
 	private Vector3d scal(Vector3d v) {
 		if(TONE != scal) {
-			if(0 == scald) {
-				v.mul(scal);
-			}else v.mul(scald);
+			v.mul(scal);
+		}else if(1 != scald){
+			v.mul(scald);
 		}
 		return v;
 	}
 	private Vector3d nscal(Vector3d v) {
 		if(TONE != scal) {
-			if(0 == scald) {
-				v.div(scal);
-			}else v.div(scald);
+			v.div(scal);
+		}else if(1 != scald){
+			v.div(scald);
 		}
 		return v;
 	}
