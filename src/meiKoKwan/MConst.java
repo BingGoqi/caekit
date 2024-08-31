@@ -11,7 +11,7 @@ import org.joml.Vector3d;
 
 /**  
  * @ClassName: MConst
- * @Description: TODO
+ * @Description: 常量接口
  * @author BingGoqi
  * @date 2024-08-29 10:16:07 
 */

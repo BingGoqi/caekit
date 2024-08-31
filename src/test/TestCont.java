@@ -7,6 +7,8 @@
 
 package test;
 
+import org.joml.Vector3d;
+
 /**  
  * @ClassName: TestCont
  * @Description: TODO
@@ -15,24 +17,25 @@ package test;
 */
 
 public class TestCont {
-
-	/**  
-	 * @MethodName: main
-	 * @Description: TODO
-	 * @author BingGoqi
-	 * @param args void
-	 * @date 2024-07-11 07:36:45 
-	 */
-
-	public static void main(String[] args) {
-		test1();
-
+	Vector3d v;
+	public TestCont() {
+		v = new Posi();
 	}
-	static void test1() {
-		byte a = 100;
-		a+= 100;
-		a+= 100;
-		int b = Byte.toUnsignedInt(a);
-		System.out.println(b);
+	@Override
+	public String toString() {
+		return v.toString();
+	}
+	public static void main(String[] args) {
+		var c = new TestCont();
+		Vector3d k = c.v;
+		Posi p = (Posi) k;
+		System.out.println(c);
+	}
+}
+class Posi extends Vector3d{
+	int t = 0;
+	@Override
+	public String toString() {
+		return "Posi_obj";
 	}
 }

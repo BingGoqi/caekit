@@ -16,6 +16,7 @@ import org.joml.Vector3d;
  * @author  BingGoqi
  * @date  2024-07-19 03:37:28 
  */
+//需破译检验 by24-8-30
 public final class CubePlot{
 	//f(x) = a*(x3+b*x2+c*x+d)
 	//f(x) = t3+p*t+q, t = x+dx

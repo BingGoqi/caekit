@@ -5,8 +5,9 @@ import org.joml.Vector3d;
 
 import static meiKoKwan.MConst.*;
 
-public class GRSfrom implements TransFrome,GRSf{
+public class GRSfrom implements TransForm,GRSf{
 	Vector3d move,scal;
+	double scald = 0;
 	AxisAngle4d aa,na;
 	int order;//final
 	public GRSfrom() {
@@ -21,6 +22,15 @@ public class GRSfrom implements TransFrome,GRSf{
 		this.aa = aa;
 		this.move = move;
 		this.scal = scal;
+		na = new AxisAngle4d(aa);
+		na.angle = -na.angle;
+	}
+	public GRSfrom(Vector3d move,double scald,AxisAngle4d aa,int order) {
+		this.order = order;
+		this.aa = aa;
+		this.move = move;
+		this.scald = scald;
+		if(1 == scald) scal = TONE;
 		na = new AxisAngle4d(aa);
 		na.angle = -na.angle;
 	}
@@ -41,19 +51,27 @@ public class GRSfrom implements TransFrome,GRSf{
 		}
 	}
 	private Vector3d move(Vector3d v) {
-		if(ZERO != move)v.sub(move);
-		return v;
-	}
-	private Vector3d nmove(Vector3d v) {
 		if(ZERO != move)v.add(move);
 		return v;
 	}
+	private Vector3d nmove(Vector3d v) {
+		if(ZERO != move)v.sub(move);
+		return v;
+	}
 	private Vector3d scal(Vector3d v) {
-		if(TONE != scal)v.div(scal);
+		if(TONE != scal) {
+			if(0 == scald) {
+				v.mul(scal);
+			}else v.mul(scald);
+		}
 		return v;
 	}
 	private Vector3d nscal(Vector3d v) {
-		if(TONE != scal)v.mul(scal);
+		if(TONE != scal) {
+			if(0 == scald) {
+				v.div(scal);
+			}else v.div(scald);
+		}
 		return v;
 	}
 	private Vector3d rtt(Vector3d v) {
@@ -68,6 +86,8 @@ public class GRSfrom implements TransFrome,GRSf{
 interface GRSf{
 	byte GRS = 0b011011;
 	byte GSR = 0b011110;
+	//byte GR  = 0b011000;
+	//byte RG  = 0b100100;//TOOD 待补全
 	AxisAngle4d IDENTITY = new AxisAngle4d();
 	GRSfrom IForm = new GRSfrom();
 }

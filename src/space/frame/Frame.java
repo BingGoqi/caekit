@@ -6,14 +6,16 @@ public class Frame {
 	private final Frame sup;
 	private final byte rank;
 	final String name;
-	private final TransFrome tf;
-	public Frame tsub;//TOOD 临时
+	private final TransForm tf;
+	public Frame tsub;//TOOD 临时,坐标系链标记
 	private UnInertial ui;
-	public Frame(Frame sup,String name,TransFrome tf) {
+	final int properties;
+	public Frame(Frame sup,String name,TransForm tf) {
 		this.name = name;
 		this.sup = sup;
 		this.rank = (byte) (sup.rank+1);
 		this.tf = tf;
+		properties = 1;
 	}
 	void tSup(Vector3d v) {
 		tf.tSup(v, v);
