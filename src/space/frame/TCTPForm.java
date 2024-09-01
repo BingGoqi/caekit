@@ -9,14 +9,12 @@ import meiKoKwan.SinCos;
 /**
  * 固定偏移量地面坐标系
  */
-public class TCTPFrame extends Frame{
+public class TCTPForm implements TransForm{
 	Vector3d ae2l;
-	public TCTPFrame(Frame sup, String name, double r,double e,double dl) {
-		super(sup, name, null);
+	public TCTPForm(double r,double e,double dl) {
 		this.ae2l = new Vector3d(r,e*e,dl);
 	}
-	public TCTPFrame(Frame sup, String name, Vector3d ae2l) {
-		super(sup, name, null);
+	public TCTPForm(Vector3d ae2l) {
 		this.ae2l = new Vector3d(ae2l);
 	}
 	static double pvr(double a,double e12,double B) {
@@ -26,7 +24,7 @@ public class TCTPFrame extends Frame{
 		return ae2l.x/sqrt(1-ae2l.y*pow2(sin(B)));
 	}
 	@Override
-	void tSup(Vector3d in, Vector3d out) {
+	public void tSup(Vector3d in, Vector3d out) {
 		//in:LBH;out:xyz;
 		in.x += ae2l.z;
 		double n = pvr(ae2l.y);
@@ -38,7 +36,7 @@ public class TCTPFrame extends Frame{
 		
 	}
 	@Override
-	void tThis(Vector3d in, Vector3d out) {
+	public void tThis(Vector3d in, Vector3d out) {
 		//in:xyz;out:LBH;
 		double zl = sqrt(fma(in.x,in.x,in.y*in.y));
 		out.x = atan2(in.y, in.x);

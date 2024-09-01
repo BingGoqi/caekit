@@ -7,6 +7,8 @@
 
 package space.orbit;
 
+import meiKoKwan.MathExtends;
+
 /**  
  * @ClassName: BattinOrbit
  * @Description: TODO
@@ -66,6 +68,6 @@ public class BattinOrbit {
 	}
 	public final double BattionSolve(double dt) {
 		//TODO 未完工
-		return KeplerianOrbit.KeplerSolve(dt, dt);
+		return MathExtends.KeplerSolve(dt, dt);
 	}
 }

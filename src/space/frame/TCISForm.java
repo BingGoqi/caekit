@@ -5,19 +5,17 @@ import org.joml.Vector3d;
 
 import meiKoKwan.SinCos;
 
-public class TCISFrame extends Frame {
+public class TCISForm implements TransForm {
 	private Vector3d rae;
 	//y轴指向平天球和真天球左侧交点
-	public TCISFrame(Frame sup, String name, Vector3d rae) {
-		super(sup, name, null);
+	public TCISForm(Vector3d rae) {
 		this.rae = rae;
 	}
-	public TCISFrame(Frame sup, String name, double r, double dA,double dE) {
-		super(sup, name, null);
+	public TCISForm(double r, double dA,double dE) {
 		rae.set(r,dA,dE);
 	}
 	@Override
-	void tSup(Vector3d in, Vector3d out) {
+	public void tSup(Vector3d in, Vector3d out) {
 		in.add(0,rae.y,rae.z);
 		SinCos A = new SinCos(in.y),E = new SinCos(in.z);
 		out.x = in.x * E.cos;
@@ -27,7 +25,7 @@ public class TCISFrame extends Frame {
 		out.mul(rae.x);
 	}
 	@Override
-	void tThis(Vector3d in, Vector3d out) {
+	public void tThis(Vector3d in, Vector3d out) {
 		out.x = in.length();
 		out.y = Math.atan2(in.y, in.x);
 		out.z = Math.atan2(in.z, out.x);

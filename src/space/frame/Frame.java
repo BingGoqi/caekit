@@ -9,7 +9,7 @@ public class Frame {
 	private final TransForm tf;
 	public Frame tsub;//TOOD 临时,坐标系链标记
 	private UnInertial ui;
-	final int properties;
+	final int properties;//状态(参考M4d)
 	public Frame() {
 		sup = null;
 		name = "RootFrame";

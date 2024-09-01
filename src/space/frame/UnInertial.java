@@ -2,7 +2,7 @@ package space.frame;
 
 import org.joml.Vector3d;
 
-import Time.AboutTime;
+import utils.AboutTime;
 
 public class UnInertial implements AboutTime{//非惯性标识
 	Vector3d A,RV,RA;
