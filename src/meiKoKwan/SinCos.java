@@ -17,7 +17,7 @@ import static meiKoKwan.MathExtends.*;
  * @date 2024-07-30 05:53:44 
 */
 
-public class SinCos {
+public class SinCos implements MConst{
 	public final double sin,cos;
 	/**  
 	 * @Constructor: SinCos
@@ -25,12 +25,19 @@ public class SinCos {
 	 * @author BingGoqi
 	 * @date 2024-07-30 05:53:55 
 	 */
-	public static void SinCos(Vector2d sc,double a) {
+	public static void getSinCos(Vector2d sc,double a) {
 		sc.x = sin(a);
 		sc.y = sqrt(1-sc.x*sc.x);
+		if(mod1d(fma(a,ONEiPI,-.25)) < .5)
+			sc.y = -sc.y;
 	}
 	public SinCos(double a) {
 		sin = sin(a);
-		cos = sqrt(1-sin*sin);
+		if(mod1d(fma(a,ONEiPI,-.25)) < .5) {
+			cos = sqrt(1-sin*sin);
+		}else {
+			cos = -sqrt(1-sin*sin);
+		}
+		
 	}
 }

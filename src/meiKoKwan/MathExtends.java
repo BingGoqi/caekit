@@ -17,18 +17,18 @@ import org.joml.Math;
  * @date 2024-07-04 03:30:04 
 */
 
-public class MathExtends extends Math{
+public class MathExtends extends Math implements MConst{
 	public static double asinh(double x) {
-		return java.lang.Math.log(x+sqrt(1+x*x));
+		return log(x+sqrt(1+x*x));
 	}
 	public static boolean round(double a,double b) {
-		return (Math.abs(a-b)<1e-8);
+		return (abs(a-b)<1e-8);
 	}
 	public static double pow2(double a) {return a*a;}
 	public static double pow3(double a) {return a*a*a;}
 	public static double mod1d(double a) {return a-((long)a);}
 	public static double atan(double x) {return java.lang.Math.atan(x);}
-	public static double pow(double x,double a) {return java.lang.Math.pow(x, a);}
+	public static double pow(double x,double a) {return pow(x, a);}
 	public static double ksmd(int p,int n) {
 		int a = p;
 		while(n > 1) {

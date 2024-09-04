@@ -16,6 +16,6 @@ import java.util.LinkedList;
  * @date 2024-07-24 01:30:20 
 */
 
-public class Linkedlist<E> extends LinkedList<E> {
+public class TLinkedlist<E> extends LinkedList<E> {
 
 }

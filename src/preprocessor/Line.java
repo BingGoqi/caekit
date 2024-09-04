@@ -1,9 +1,9 @@
 package preprocessor;
 
-import utils.Linkedlist;
+import java.util.LinkedList;
 
 public class Line {
-	Linkedlist<Block> list = new Linkedlist<Block>();
+	LinkedList<Block> list = new LinkedList<Block>();
 	static byte Isblock(char c) {
 		if(96 <c && 123 > c)return 1;
 		if(64 <c && 91 > c)return 1;

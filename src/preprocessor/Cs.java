@@ -10,7 +10,6 @@ public class Cs {
 		Path p = Paths.get("test_in.java");
 		Path pout = Paths.get("test_out.java");
 		byte[] bl = {'\n'};
-		
 		try {
 			Files.delete(pout);
 			Files.createFile(pout);

@@ -5,7 +5,7 @@ import org.joml.Matrix4d;
 import org.joml.Vector3d;
 
 public class Matrix4dForm implements TransForm ,GRSf{
-	Matrix4d m= new Matrix4d(),invm= new Matrix4d();
+	final Matrix4d m= new Matrix4d(),invm= new Matrix4d();
 	public Matrix4dForm() {
 	}
 	public Matrix4dForm(Vector3d move,Vector3d scal,AxisAngle4d aa,int order) {

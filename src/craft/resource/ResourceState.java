@@ -7,7 +7,7 @@
 
 package craft.resource;
 
-import utils.Linkedlist;
+import java.util.LinkedList;
 
 /**  
  * @ClassName: ResourceTree
@@ -17,7 +17,7 @@ import utils.Linkedlist;
  */
 
 public class ResourceState{
-	Linkedlist<ResourceContainer> clist;//相同优先级集合
+	LinkedList<ResourceContainer> clist;//相同优先级集合
 	int type,priority;
 	public int getType() {
 		return type;
@@ -37,7 +37,7 @@ public class ResourceState{
 		this.type = type;
 		size = 0;
 		stock = 0;
-		clist = new Linkedlist<ResourceContainer>();
+		clist = new LinkedList<ResourceContainer>();
 	}
 	public void addContainer(ResourceContainer rc) {
 		if(rc.getType() == type && rc.getPriority() == priority) {
