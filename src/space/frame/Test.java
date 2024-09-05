@@ -5,11 +5,12 @@ import static meiKoKwan.MathExtends.*;
 
 class Test{
 	public static void main(String[] args) {
-		double a = 6378137;
+		double a = 1;//6378137;
 		var f = new Frame(new Frame(), "TCTP",new TCTPForm(a, 0.00669438002290, Math.PI/4));//CGCS2000坐标系
 		Vector3d
 		p = new Vector3d(a,a,a);
-		var k = new Vector3d(0,toRadians(35.3690332999),4676259.034589138);
+		var k = new Vector3d(0,toRadians(35.3690332999),4676259.034589138/6378137);
+		System.out.println(k);
 		f.tThis(p);
 		System.out.println(k.sub(p));
 		f.tSup(p);

@@ -26,17 +26,16 @@ public class SinCos implements MConst{
 	 * @date 2024-07-30 05:53:55 
 	 */
 	public static void getSinCos(Vector2d sc,double a) {
-		sc.x = sin(a);
-		sc.y = sqrt(1-sc.x*sc.x);
-		if(mod1d(fma(a,ONEiPI,-.25)) < .5)
-			sc.y = -sc.y;
+		sc.y = cos(a);
+		sc.x = sqrt(-fma(sc.y,sc.y,-1));
+		if(mod1d(a*iTAU) > .5)sc.x = -sc.x;
 	}
 	public SinCos(double a) {
-		sin = sin(a);
-		if(mod1d(fma(a,ONEiPI,-.25)) < .5) {
-			cos = sqrt(1-sin*sin);
+		cos = cos(a);
+		if(mod1d(a*iTAU) > .5) {
+			sin = -sqrt(-fma(cos,cos,-1));
 		}else {
-			cos = -sqrt(1-sin*sin);
+			sin = sqrt(-fma(cos,cos,-1));
 		}
 		
 	}

@@ -6,17 +6,22 @@ import org.joml.Vector3d;
 
 public class Part {
 	Vector3d p,v;
-	Vector3d rv,invir;
+	Vector3d rv,ir;
 	Quaterniond iq;
 	double m;
 	Vector3d a,ra;
+	Vector3d tmp;
 	public Part(double m,Vector3d ir) {
-		invir = new Vector3d(1/ir.x,1/ir.y,1/ir.z);
+		ir = new Vector3d(ir);
 		this.m = m;
 	}
 	void addF(Vector3d p,Vector3d f) {
 		a.fma(1/m, f);
-		ra.fma(invir,new Vector3d(f).cross(p));
+		ra.add(tmp.set(f).cross(p));
+		ra.x += (ir.y-ir.z)*rv.y*rv.z;
+		ra.y += (ir.z-ir.x)*rv.z*rv.x;
+		ra.z += (ir.x-ir.y)*rv.x*rv.y;
+		ra.div(ir);
 	}
 	void flush1(double dt) {//计算系统外力
 		iq.transformInverse(ra);

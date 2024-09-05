@@ -10,6 +10,8 @@ package meiKoKwan;
 import static java.lang.Math.*;
 
 import org.joml.Math;
+import org.joml.Vector2d;
+import org.joml.Vector3d;
 /**  
  * @ClassName: MathExtends
  * @Description: 扩展数学函数

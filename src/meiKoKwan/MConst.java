@@ -23,5 +23,7 @@ public interface MConst {
 	Vector3d Y = new Vector3d(0,1,0);
 	Vector3d Z = new Vector3d(0,0,1);
 	Vector3d TONE = new Vector3d(1,1,1);
-	double ONEiPI = 1/Math.PI;
+	double PI = Math.PI;
+	double TAU = 2*PI;
+	double iTAU = 1/TAU;
 }
