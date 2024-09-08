@@ -25,16 +25,16 @@ public class Frame {
 		properties = 1;
 	}
 	void tSup(Vector3d v) {
-		tSup(new Vector3d(v), v);
+		tf.tSup(v);
 	}
 	void tSup(Vector3d in,Vector3d out) {
-		tf.tSup(in, out);
+		tSup(out.set(in));
 	}
 	void tThis(Vector3d v) {
-		tThis(new Vector3d(v), v);
+		tf.tThis(v);
 	}
 	void tThis(Vector3d in,Vector3d out) {
-		tf.tThis(in, out);
+		tThis(out.set(in));
 	}
 	void tFrame(Vector3d in,Vector3d out,Frame fSup) {
 		Frame tp = this;

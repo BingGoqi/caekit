@@ -43,19 +43,17 @@ public class GRSfrom implements TransForm,GRSf{
 		na.angle = -na.angle;
 	}
 	@Override
-	public void tSup(Vector3d in, Vector3d out) {
-		out.set(in);
+	public void tSup(Vector3d v) {
 		switch(order) {
-		case GRS ->scal(rtt(move(out)));
-		case GSR ->rtt(scal(move(out)));
+		case GRS ->scal(rtt(move(v)));
+		case GSR ->rtt(scal(move(v)));
 		}
 	}
 	@Override
-	public void tThis(Vector3d in, Vector3d out) {
-		out.set(in);
+	public void tThis(Vector3d v) {
 		switch(order) {
-		case GRS ->nmove(nrtt(nscal(out)));
-		case GSR ->nmove(nscal(nrtt(out)));
+		case GRS ->nmove(nrtt(nscal(v)));
+		case GSR ->nmove(nscal(nrtt(v)));
 		}
 	}
 	private Vector3d move(Vector3d v) {

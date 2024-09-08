@@ -17,11 +17,11 @@ public class Matrix4dForm implements TransForm ,GRSf{
 		m.invert(invm);
 	}
 	@Override
-	public void tSup(Vector3d in, Vector3d out) {
-		m.transformProject(in, out);
+	public void tSup(Vector3d v) {
+		m.transformProject(v);
 	}
 	@Override
-	public void tThis(Vector3d in, Vector3d out) {
-		invm.transformProject(in, out);
+	public void tThis(Vector3d v) {
+		invm.transformProject(v);
 	}
 }

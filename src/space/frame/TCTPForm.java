@@ -24,24 +24,22 @@ public class TCTPForm implements TransForm{
 		return ae2l.x/sqrt(1-ae2l.y*pow2(sin(B)));
 	}
 	@Override
-	public void tSup(Vector3d in, Vector3d out) {
+	public void tSup(Vector3d v) {
 		//in:LBH;out:xyz;
-		in.x += ae2l.z;
+		v.x += ae2l.z;
 		double n = pvr(ae2l.y);
-		SinCos b = new SinCos(in.y),l = new SinCos(in.x);
-		out.x = (n+in.z)*b.cos;
-		out.y = out.x*l.sin;
-		out.x *= l.cos;
-		out.z = (n*(1-ae2l.y)+in.z)*b.sin;
-		
+		SinCos B = new SinCos(v.y),L = new SinCos(v.x);
+		v.x = (n+v.z)*B.cos;
+		v.y = v.x*L.sin;
+		v.x *= L.cos;
+		v.z = (n*(1-ae2l.y)+v.z)*B.sin;
 	}
 	@Override
-	public void tThis(Vector3d in, Vector3d out) {
-		//in:xyz;out:LBH;
-		double zl = sqrt(fma(in.x,in.x,in.y*in.y));
-		out.x = atan2(in.y, in.x);
-		out.y = XYZ2BLH(in.z/zl, ae2l.x*ae2l.y/zl, 1-ae2l.y);
-		out.z = zl/cos(out.y)-pvr(out.y);
-		out.x -=ae2l.z;
+	public void tThis(Vector3d v) {
+		double zl = sqrt(fma(v.x,v.x,v.y*v.y));
+		v.x = atan2(v.y, v.x);
+		v.y = XYZ2BLH(v.z/zl, ae2l.x*ae2l.y/zl, 1-ae2l.y);
+		v.z = zl/cos(v.y)-pvr(v.y);
+		v.x -=ae2l.z;
 	}
 }
