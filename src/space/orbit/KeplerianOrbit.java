@@ -7,7 +7,8 @@
 
 package space.orbit;
 
-import static java.lang.Math.*;
+import static meiKoKwan.MathExtends.*;
+import meiKoKwan.SinCos;
 
 /**  
  * @ClassName: KeplerianOrbit
@@ -17,7 +18,12 @@ import static java.lang.Math.*;
 */
 
 public class KeplerianOrbit {
-	public static final double asinh(double x) {
-		return Math.log(x+sqrt(1+x*x));
+	double a,e,i,pa,raan,v;
+	double n;
+	void getvval(double dt) {
+		double E = KeplerSolve(e, n*dt);
+		SinCos cE = new SinCos(E);
+		//E = 1/(1-e*cE.cos);
+		//SinCos F = new SinCos(sqrt(1-e*e)*cE.sin*E,(cE.cos-e)*E);
 	}
 }

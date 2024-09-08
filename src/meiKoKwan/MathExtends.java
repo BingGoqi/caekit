@@ -104,7 +104,6 @@ public class MathExtends extends Math implements MConst{
 		}
 		return 1/0;
 	}
-
 	public static double XYZ2BLH(double t,double p,double k) {
 		double tb,dtb;
 		dtb = p*t/sqrt(k+t*t);

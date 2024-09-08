@@ -12,7 +12,7 @@ import org.joml.Vector3d;
 
 /**
  * @ClassName : CubePlotData
- * @Description : 三次函数和求解器，使用三次函数球根公式，快速匹配根数
+ * @Description : 三次函数和求解器，使用三次函数求根公式，快速匹配根数
  * @author  BingGoqi
  * @date  2024-07-19 03:37:28 
  */
@@ -20,6 +20,9 @@ import org.joml.Vector3d;
 public final class CubePlot{
 	//f(x) = a*(x3+b*x2+c*x+d)
 	//f(x) = t3+p*t+q, t = x+dx
+	//通过x3和-p*x-q的交点性质判断根数
+	//已经忘了推导过程了,有时间重新推下
+	//TODO 尽量减少构造Vector3d
 	private double a,p,q,dat,dx;
 	public CubePlot(double b,double c,double d) {
 		dx = b/3;
@@ -83,7 +86,7 @@ public final class CubePlot{
 		if(p > 0) return 1;
 		if(p == 0)return 0;
 		q = abs(q);
-		if(q > dat)return 1;
+		if(q > dat)return 1;//快速判断根数
 		if(q < dat)return 3;
 		return 2;
 	}

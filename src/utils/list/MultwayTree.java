@@ -5,7 +5,7 @@
  * @date 2024-07-30 10:07:43 
  */ 
 
-package utils;
+package utils.list;
 
 /**  
  * @ClassName: MultwayTree

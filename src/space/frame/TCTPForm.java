@@ -15,7 +15,7 @@ public class TCTPForm implements TransForm{
 		this.ae2l = new Vector3d(r,e*e,dl);
 	}
 	public TCTPForm(Vector3d ae2l) {
-		this.ae2l = new Vector3d(ae2l);
+		this.ae2l = ae2l;
 	}
 	static double pvr(double a,double e12,double B) {
 		return a/sqrt(1-e12*pow2(sin(B)));

@@ -26,19 +26,18 @@ public class GRSfrom implements TransForm,GRSf{
 	public GRSfrom(Vector3d move,Vector3d scal,AxisAngle4d aa,int order) {
 		this.scald = 1;//
 		this.order = order;
-		//this.aa = aa;
-		this.move = move == ZERO?ZERO:new Vector3d(move);
-		this.scal = scal == TONE?TONE:new Vector3d(scal);
-		this.aa = aa == IDENTITY?IDENTITY:new AxisAngle4d(aa);
+		this.move = move;
+		this.scal = scal;
+		this.aa = aa;
 		na = aa == IDENTITY?IDENTITY:new AxisAngle4d(aa);;
 		na.angle = -na.angle;
 	}
 	public GRSfrom(Vector3d move,double scald,AxisAngle4d aa,int order) {
 		this.order = order;
-		this.move = move == ZERO?ZERO:new Vector3d(move);
+		this.move = move;
 		this.scald = scald;
 		if(1 == scald) scal = TONE;
-		this.aa = aa == IDENTITY?IDENTITY:new AxisAngle4d(aa);
+		this.aa = aa;
 		na = aa == IDENTITY?IDENTITY:new AxisAngle4d(aa);;
 		na.angle = -na.angle;
 	}

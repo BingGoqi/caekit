@@ -25,16 +25,9 @@ public class Part {
 	void addF(Vector3f f) {//外部坐标
 		a.fma(1/m, f);
 	}
-//	void addCraftMoment(Vector3d m) {
-//		rm.add(m);
-//	}
 	void addTFBForce(Vector3f p,Vector3f f) {
 		a.fma(1/m, f);
 		rm.add(tmp.set(f).cross(p));
-		//ra.x += (ir.y-ir.z)*rv.y*rv.z;
-		//ra.y += (ir.z-ir.x)*rv.z*rv.x;
-		//ra.z += (ir.x-ir.y)*rv.x*rv.y;
-		//ra.div(ir);
 	}
 	void flush1(float dt) {//计算系统外力
 		a.mul(dt*0.5f);
@@ -52,5 +45,9 @@ public class Part {
 	}
 	void flush2() {//计算内力
 		
+	}
+	public Vector3f get(int ida) {
+		// TODO 自动生成的方法存根
+		return null;
 	}
 }

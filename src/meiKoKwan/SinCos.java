@@ -30,6 +30,10 @@ public class SinCos implements MConst{
 		sc.x = sqrt(-fma(sc.y,sc.y,-1));
 		if(mod1d(a*iTAU) > .5)sc.x = -sc.x;
 	}
+	public SinCos(double s,double c) {
+		sin = s;
+		cos = c;
+	}
 	public SinCos(double a) {
 		cos = cos(a);
 		if(mod1d(a*iTAU) > .5) {

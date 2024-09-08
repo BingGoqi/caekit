@@ -12,7 +12,7 @@ public class TCISForm implements TransForm {
 		this.rae = rae;
 	}
 	public TCISForm(double r, double dA,double dE) {
-		rae.set(r,dA,dE);
+		rae = new Vector3d(r,dA,dE);
 	}
 	
 	public void tSup(Vector3d in, Vector3d out) {//rae-.

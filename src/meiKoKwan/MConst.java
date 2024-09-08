@@ -7,7 +7,6 @@
 
 package meiKoKwan;
 
-import org.joml.Math;
 import org.joml.Vector3d;
 
 /**  
@@ -26,4 +25,5 @@ public interface MConst {
 	double PI = Math.PI;
 	double TAU = 2*PI;
 	double iTAU = 1/TAU;
+	float NONE = (float)(Math.log(2.117)/0.75);
 }
