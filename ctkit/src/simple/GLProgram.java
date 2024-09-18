@@ -19,6 +19,11 @@ public class GLProgram implements GLElement<GLProgram>{
 	public void free() {
 		glDeleteProgram(program);
 	}
+	public Uniform getUniform(String name) throws Exception {
+		int ptr = glGetUniformLocation(program, name);
+		if(ptr < 0) throw new Exception("Could not find uniform"+name);
+		return new Uniform(ptr, name);
+	}
 	public void addShader(Shader s) {
 		glAttachShader(program,s.shader());
 		switch(s.getType()) {
@@ -56,5 +61,18 @@ public class GLProgram implements GLElement<GLProgram>{
 	@Override
 	public int getPrt() {
 		return program;
+	}
+	class Uniform {
+		public final int ptr;
+		public final String name;
+		public Uniform(String name,GLProgram gp) throws Exception {
+			this.name = name;
+			ptr = glGetUniformLocation(gp.getPrt(), name);
+			if(ptr < 0) throw new Exception("Could not find uniform"+name);
+		}
+		public Uniform(int ptr,String name) {
+			this.name = name;
+			this.ptr = ptr;
+		}
 	}
 }

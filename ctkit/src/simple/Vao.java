@@ -4,34 +4,48 @@ import static org.lwjgl.opengl.GL30.*;
 
 public class Vao implements GLElement<Vao>{
 	static final Vao Defalut = new Vao(0);
+	static Vao ListEnd = Defalut;
+	
 	private final int vao;
 	private VData vfirst,vend;
 	private int size;
 	private Vao next;
-	private boolean set = false;
+	private int set = 0;
+	private int located;
 	public Vao() {
 		vao = glGenVertexArrays();
+		ListEnd.setnext(this);
+		ListEnd = this;
 	}
 	public Vao(int i) {
 		vao = 0;
+		set = 1;
 	}
 	public void set() {
-		if(set) return;
+		if(1 == set) return;
 		glBindVertexArray(vao);
 		VData vd = vfirst;
 		int offset = 0;
-		int located = 0;
+		located = 0;
 		while(vd != null) {
-			glVertexAttribPointer(located, vd.num, vd.gettype(), false, size, offset);
 			glEnableVertexAttribArray(located);
+			glVertexAttribPointer(located, vd.num, vd.gettype(), false, size, offset);
 			located ++;
 			offset += vd.getsize();
 			vd = vd.getnext();
 		}
-		set = true;
+		set = 1;
+	}
+	public void set(int type,int vbo,VData vd) {
+		if(1 == set) return;
+		set = 2;
+		glBindBuffer(type, vbo);
+		glEnableVertexAttribArray(located++);
+		glVertexAttribPointer(located, vd.num, vd.gettype(), false,vd.getsize(),0);
+		
 	}
 	public Vao add(VData vd) {
-		if(set)return null;
+		if(1 == set)return null;
 		size += vd.getsize();
 		if(vfirst == null) {
 			vfirst = vd;
@@ -47,7 +61,7 @@ public class Vao implements GLElement<Vao>{
 	}
 	@Override
 	public void free() {
-		glDeleteVertexArrays(vao);
+		if(0 != vao)glDeleteVertexArrays(vao);
 	}
 	@Override
 	public void link() {

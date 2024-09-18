@@ -9,14 +9,11 @@ package simple;
 
 import static org.lwjgl.opengl.GL20.*;
 
-import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
-
 import org.lwjgl.BufferUtils;
-import org.lwjgl.stb.STBImage;
-import org.lwjgl.system.MemoryStack;
 import org.lwjgl.system.MemoryUtil;
+
+import org.joml.Vector3d;
 
 /**  
  * @ClassName: Test
@@ -31,16 +28,23 @@ public class Test {
 	GLProgram gp;
 	private int vbo;
 	private Vao vao;
-	public void init() {
+	Camera c;
+	Texture t;
+	int upm;
+	public void init() throws Exception {
 		window = new Window(600, 600, "LearnOpenGL-CN");
 		gp = new GLProgram();
-		vs = new Shader(Const.tv2, GL_VERTEX_SHADER);
-		gp.addShader(vs);
+		vs = new Shader(Const.tv3, GL_VERTEX_SHADER);
 		fs = new Shader(Const.tf2, GL_FRAGMENT_SHADER);
+		gp.addShader(vs);
 		gp.addShader(fs);
 		gp.link();
 		gp.use();
-		
+		glActiveTexture(GL_TEXTURE0);
+		t = new Texture("./sp/texture/01.png");
+		t.free();
+		vao = new Vao();
+		//vbo
 		float[] flist = {-.9f,-.9f,0, 1,0,0, 0,0
 						,.9f,-.9f,0,  0,1,0, 1,0
 						  ,0,.9f,0,   0,0,1, .5f,1};
@@ -53,36 +57,10 @@ public class Test {
 		if(fbuffer != null) {
 			MemoryUtil.memFree(fbuffer);
 		}
-		
-		int width = 0;
-		int height = 0;
-		ByteBuffer buf = null;
-		// 加载纹理文件
-		try (MemoryStack stack = MemoryStack.stackPush()) {
-			IntBuffer w = stack.mallocInt(1);
-			IntBuffer h = stack.mallocInt(1);
-			IntBuffer channels = stack.mallocInt(1);
-			STBImage.nstbi_set_flip_vertically_on_load(1);
-			buf = STBImage.stbi_load("./sp/texture/01.png", w, h, channels, 4);
-			if (buf == null) {
-				throw new Exception("Image file not loaded: " + STBImage.stbi_failure_reason());
-			}
-			width = w.get();
-			height = h.get();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		glActiveTexture(GL_TEXTURE0);
-		int textureId = glGenTextures();
-		glBindTexture(GL_TEXTURE_2D, textureId);
-		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height,0, GL_RGBA, GL_UNSIGNED_BYTE, buf);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		STBImage.stbi_image_free(buf);
-		
-		vao = new Vao();
+		//mvp
+		upm = glGetUniformLocation(gp.getPrt(), "pm");
+		c = new Camera(new Vector3d(2,2,-3), new Vector3d(0,0,0));
+		c.flush(upm);
 		vao.add(new VData(GL_FLOAT, 3)).add(new VData(GL_FLOAT, 3)).add(new VData(GL_FLOAT, 2));
 		vao.set();
 	}
@@ -107,7 +85,7 @@ public class Test {
 		window.free();
 	}
 	private final long max(long a, long b) {return a>b?a:b;}
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) throws Exception {
 		Test t = new Test();
 		t.init();
 		t.run();

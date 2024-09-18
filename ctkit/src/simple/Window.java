@@ -7,14 +7,13 @@
 
 package simple;
 
-import org.lwjgl.glfw.GLFWKeyCallback;
-import org.lwjgl.opengl.GL;
-import org.lwjgl.system.MemoryUtil;
-
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 
 import org.lwjgl.glfw.GLFWErrorCallback;
+import org.lwjgl.glfw.GLFWKeyCallback;
+import org.lwjgl.opengl.GL;
+import org.lwjgl.system.MemoryUtil;
 
 /**  
  * @ClassName: Window

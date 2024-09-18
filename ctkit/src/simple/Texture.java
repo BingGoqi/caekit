@@ -1,6 +1,6 @@
 package simple;
 
-import static org.lwjgl.opengl.GL11.glGenTextures;
+import static org.lwjgl.opengl.GL11.*;
 
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
@@ -29,6 +29,11 @@ public class Texture implements GLElement<Texture> {
 		width = w.get();
 		height = h.get();
 		texture = glGenTextures();
+		glBindTexture(GL_TEXTURE_2D, texture);
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height,0, GL_RGBA, GL_UNSIGNED_BYTE, buf);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	}
 	
 	@Override
@@ -53,8 +58,13 @@ public class Texture implements GLElement<Texture> {
 	}
 	@Override
 	public void use() {
+		
 	}
 	@Override
 	public void link() {
+	}
+	@Override
+	public String toString() {
+		return file;
 	}
 }

@@ -1,6 +1,9 @@
 package simple;
 
+import org.joml.Vector3d;
+
 public interface Const {//TempUse
+	Vector3d Y = new Vector3d(0,1,0);
 	String tv1 = """
 			#version 330
 			layout (location=0) in vec3 position;
@@ -37,6 +40,19 @@ public interface Const {//TempUse
 			void main(){fragColor = texture(text,ourtp)*.5;
 			fragColor += ourcol*.5;
 			fragColor.w = 1;
+			}
+			""";
+	String tv3 = """
+			#version 330
+			layout (location=0) in vec3 position;
+			layout (location=1) in vec3 col;
+			layout (location=2) in vec2 tp;
+			uniform mat4 pm;
+			out vec3 ourcol;
+			out vec2 ourtp;
+			void main(){gl_Position = pm*vec4(position, 1);
+			ourtp = tp;
+			ourcol = col;
 			}
 			""";
 	String img = "./sp/texture/01.png";
