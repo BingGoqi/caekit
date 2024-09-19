@@ -14,6 +14,7 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.system.MemoryUtil;
 
 import org.joml.Vector3d;
+import org.joml.Matrix4d;
 
 /**  
  * @ClassName: Test
@@ -59,8 +60,9 @@ public class Test {
 		}
 		//mvp
 		upm = glGetUniformLocation(gp.getPrt(), "pm");
-		c = new Camera(new Vector3d(2,2,-3), new Vector3d(0,0,0));
+		c = new Camera(new Vector3d(0,0,5), new Vector3d(0,0,0));
 		c.flush(upm);
+		//vao
 		vao.add(new VData(GL_FLOAT, 3)).add(new VData(GL_FLOAT, 3)).add(new VData(GL_FLOAT, 2));
 		vao.set();
 	}
@@ -70,6 +72,8 @@ public class Test {
 		glClearColor(.2f, .3f, .3f, 1);
 		while(!window.IsClose()) {
 			t = System.currentTimeMillis()+16;
+			if(c.tomove(window.keymap, .3) | c.torotate(-window.px, -window.py, .001))
+				c.flush(upm);
 			glClear(GL_COLOR_BUFFER_BIT);
 			glDrawArrays(GL_TRIANGLES, 0, 3);
 			window.flush();
@@ -85,6 +89,7 @@ public class Test {
 		window.free();
 	}
 	private final long max(long a, long b) {return a>b?a:b;}
+	
 	public static void main(String[] args) throws Exception {
 		Test t = new Test();
 		t.init();

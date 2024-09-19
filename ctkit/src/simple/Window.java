@@ -10,6 +10,7 @@ package simple;
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 
+import org.lwjgl.glfw.GLFWCursorPosCallback;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.opengl.GL;
@@ -27,8 +28,11 @@ public class Window {
 	private final long HWND;
 	private String title;
 	private GLFWKeyCallback kc;
+	private GLFWCursorPosCallback pcall;
 	private GLFWErrorCallback erroCallBack;
 	private int width,heigth;
+	public int px,py;
+	public byte[] keymap = new byte[350];
 	/**  
 	 * @Constructor: Window
 	 * @Description: Window构造函数
@@ -57,12 +61,29 @@ public class Window {
 		}
 		kc = new GLFWKeyCallback() {@Override
 			public void invoke(long window, int key, int scancode, int action, int mods) {
-				if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
-					glfwSetWindowShouldClose(window, true);
+				if(action == GLFW_PRESS) {
+					if(key == GLFW_KEY_ESCAPE) {
+						glfwSetWindowShouldClose(window, true);
+					}else {
+						keymap[key] = 1;
+					}
+				}else if(action == GLFW_RELEASE) {
+					keymap[key] = 0;
 				}
 			}
 		};
 		glfwSetKeyCallback(HWND, kc);
+		
+		glfwSetInputMode(HWND, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		pcall = new GLFWCursorPosCallback() {
+			@Override
+			public void invoke(long window, double xpos, double ypos) {
+				px = (int) (xpos - w/2);
+				py = (int) (h/2-ypos);
+			}
+		};
+		glfwSetCursorPosCallback(HWND, pcall);
+		
 		glfwMakeContextCurrent(HWND);
 		glfwSwapInterval(1);
 		GL.createCapabilities(true);
@@ -81,11 +102,10 @@ public class Window {
 		glfwPollEvents();
 	}
 	public void free() {
-		kc.free();
-		kc = null;
 		glfwFreeCallbacks(HWND);
-		glfwDestroyCursor(HWND);
-		glfwTerminate();
-		glfwSetErrorCallback(null).free();
+		//glfwDestroyCursor(HWND);
+		//glfwTerminate();
+		var cp = glfwSetErrorCallback(null);
+		if(cp != null) cp.free();
 	}
 }
